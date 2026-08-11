@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: rate-limiter
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+rate-limiter:
+  enabled: true
+  fail-mode: OPEN # Options: OPEN, CLOSED
+  general:
+    limit: 100
+    window: 60s
+    algorithm: FIXED_WINDOW
+    client-type: IP
+  auth:
+    limit: 10
+    window: 60s
+    algorithm: FIXED_WINDOW
+    client-type: IP
+  sensitive:
+    limit: 20
+    window: 60s
+    algorithm: FIXED_WINDOW
+    client-type: USER
+  upload:
+    limit: 20
+    window: 60s
+    algorithm: FIXED_WINDOW
+    client-type: USER

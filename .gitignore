@@ -1,0 +1,23 @@
+# Build
+target/
+!target/*.jar
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven
+*.log
+.mvn/wrapper/maven-wrapper.jar
+
+# Docker
+docker-compose.override.yml
