@@ -1,5 +1,8 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters.algos;
 
+import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
+import com.example.ratelimiter.limiters.stores.RateLimitStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,7 +25,8 @@ public class FixedWindowAlgorithm implements RateLimitAlgorithm {
         long retryAfter = allowed ? 0 : Math.max(ttl, 0);
         long resetAfter = Math.max(ttl, 0);
 
-        log.debug("FixedWindow key={} count={} limit={} allowed={} remaining={}", key, count, limit, allowed, remaining);
+        log.debug("FixedWindow key={} count={} limit={} allowed={} remaining={}", key, count, limit, allowed,
+                remaining);
         return new RateLimitResult(allowed, limit, remaining, retryAfter, resetAfter);
     }
 }

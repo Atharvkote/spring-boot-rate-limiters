@@ -1,6 +1,8 @@
 spring:
   application:
     name: rate-limiter
+server:
+  forward-headers-strategy: framework
   data:
     redis:
       host: ${REDIS_HOST:localhost}

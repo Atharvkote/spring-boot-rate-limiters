@@ -1,4 +1,4 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters.stores;
 
 import java.time.Duration;
 
@@ -16,4 +16,3 @@ public interface RateLimitStore {
 
     Double getHashDouble(String key, String field);
 }
-

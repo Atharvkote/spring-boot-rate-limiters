@@ -1,5 +1,8 @@
-package com.example.ratelimiter.config;
+package com.example.ratelimiter.config.properties;
 
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.enums.FailMode;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

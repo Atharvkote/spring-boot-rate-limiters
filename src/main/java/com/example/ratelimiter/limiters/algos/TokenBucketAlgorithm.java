@@ -1,5 +1,8 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters.algos;
 
+import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
+import com.example.ratelimiter.limiters.stores.RateLimitStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

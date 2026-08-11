@@ -1,6 +1,13 @@
 package com.example.ratelimiter.config;
 
-import com.example.ratelimiter.core.*;
+import com.example.ratelimiter.config.properties.RateLimiterProperties;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.limiters.RateLimiter;
+import com.example.ratelimiter.limiters.algos.FixedWindowAlgorithm;
+import com.example.ratelimiter.limiters.algos.RateLimitAlgorithm;
+import com.example.ratelimiter.limiters.algos.SlidingWindowAlgorithm;
+import com.example.ratelimiter.limiters.algos.TokenBucketAlgorithm;
+import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;

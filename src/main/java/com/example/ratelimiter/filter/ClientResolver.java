@@ -1,7 +1,8 @@
 package com.example.ratelimiter.filter;
 
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.core.ClientContext;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.limiters.records.ClientContext;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,8 @@ import java.security.Principal;
  * <p>
  * Strategy:
  * <ol>
- *   <li>If authenticated → {@code user:{principalName}}</li>
- *   <li>Otherwise → {@code ip:{remoteAddr}}</li>
+ * <li>If authenticated → {@code user:{principalName}}</li>
+ * <li>Otherwise → {@code ip:{remoteAddr}}</li>
  * </ol>
  * Does <em>not</em> blindly trust {@code X-Forwarded-For}.
  * Configure {@code server.forward-headers-strategy} for trusted proxies.

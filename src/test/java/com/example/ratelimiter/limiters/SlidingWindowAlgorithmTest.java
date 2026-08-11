@@ -1,12 +1,11 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters;
 
-import com.example.ratelimiter.config.AlgorithmType;
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.limiters.RateLimitResult;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.enums.ClientType;
 import com.example.ratelimiter.limiters.algos.SlidingWindowAlgorithm;
 import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
 import com.example.ratelimiter.limiters.stores.RateLimitStore;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,14 +25,19 @@ import static org.mockito.Mockito.when;
 class SlidingWindowAlgorithmTest {
 
     private SlidingWindowAlgorithm algorithm;
-    @Mock private RateLimitStore store;
+    @Mock
+    private RateLimitStore store;
     private static final String KEY = "rl:general:ip:1.1.1.1";
-    private final RateLimitPolicy policy = new RateLimitPolicy(5, Duration.ofSeconds(10), AlgorithmType.SLIDING_WINDOW, ClientType.IP);
+    private final RateLimitPolicy policy = new RateLimitPolicy(5, Duration.ofSeconds(10), AlgorithmType.SLIDING_WINDOW,
+            ClientType.IP);
 
     @BeforeEach
-    void setUp() { algorithm = new SlidingWindowAlgorithm(store); }
+    void setUp() {
+        algorithm = new SlidingWindowAlgorithm(store);
+    }
 
-    @Test @DisplayName("Under limit → allowed")
+    @Test
+    @DisplayName("Under limit → allowed")
     void underLimit() {
         when(store.checkSlidingWindow(eq(KEY), any(), eq(5), anyLong())).thenReturn(3L);
         when(store.getOldestZSetScore(KEY)).thenReturn(System.currentTimeMillis() - 2000L); // 2s ago
@@ -44,7 +48,8 @@ class SlidingWindowAlgorithmTest {
         assertThat(r.resetAfterSeconds()).isLessThanOrEqualTo(8);
     }
 
-    @Test @DisplayName("Rejected → retryAfter calculated from oldest score")
+    @Test
+    @DisplayName("Rejected → retryAfter calculated from oldest score")
     void rejected() {
         long now = System.currentTimeMillis();
         when(store.checkSlidingWindow(eq(KEY), any(), eq(5), anyLong())).thenReturn(-1L);
@@ -58,7 +63,8 @@ class SlidingWindowAlgorithmTest {
         assertThat(r.resetAfterSeconds()).isEqualTo(6L);
     }
 
-    @Test @DisplayName("Rejected with null oldest score → defaults to window size")
+    @Test
+    @DisplayName("Rejected with null oldest score → defaults to window size")
     void rejectedNoOldest() {
         when(store.checkSlidingWindow(eq(KEY), any(), eq(5), anyLong())).thenReturn(-1L);
         when(store.getOldestZSetScore(KEY)).thenReturn(null);

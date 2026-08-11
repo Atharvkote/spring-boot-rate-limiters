@@ -1,4 +1,4 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters.stores;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +26,7 @@ public class RedisRateLimitStore implements RateLimitStore {
         Long count = redisTemplate.execute(
                 fixedWindowScript,
                 Collections.singletonList(key),
-                String.valueOf(window.getSeconds())
-        );
+                String.valueOf(window.getSeconds()));
         log.debug("Redis INCR key={} window={}s count={}", key, window.getSeconds(), count);
         return count != null ? count : 0;
     }
@@ -45,8 +44,7 @@ public class RedisRateLimitStore implements RateLimitStore {
                 Collections.singletonList(key),
                 String.valueOf(window.getSeconds()),
                 String.valueOf(limit),
-                String.valueOf(now)
-        );
+                String.valueOf(now));
         log.debug("Redis SlidingWindow key={} count={}", key, count);
         return count != null ? count : -1;
     }
@@ -74,8 +72,7 @@ public class RedisRateLimitStore implements RateLimitStore {
                 String.valueOf(limit),
                 String.valueOf(refillRate),
                 String.valueOf(now),
-                String.valueOf(window.getSeconds())
-        );
+                String.valueOf(window.getSeconds()));
         log.debug("Redis TokenBucket key={} remaining={}", key, remaining);
         return remaining != null ? remaining : -1;
     }

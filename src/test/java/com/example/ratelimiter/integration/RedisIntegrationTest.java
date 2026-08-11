@@ -1,6 +1,6 @@
 package com.example.ratelimiter.integration;
 
-import com.example.ratelimiter.core.RedisRateLimitStore;
+import com.example.ratelimiter.limiters.stores.RedisRateLimitStore;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -132,4 +132,5 @@ class RedisIntegrationTest {
         Double tokens = store.getHashDouble(key, "tokens");
         assertThat(tokens).isNotNull().isLessThanOrEqualTo(1.0);
     }
+
 }

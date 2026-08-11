@@ -1,17 +1,15 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters;
 
-import com.example.ratelimiter.config.AlgorithmType;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.limiters.algos.RateLimitAlgorithm;
+import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
+import com.example.ratelimiter.limiters.records.ClientContext;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
-/**
- * Single concrete rate limiter — replaces the old interface + abstract base + 4 subclasses.
- * Instances are created per-category as Spring beans in {@code RateLimiterConfig}.
- * <p>
- * Key format: {@code rl:{category}:{clientType}:{clientId}}
- * <br>Examples: {@code rl:auth:ip:10.0.0.1}, {@code rl:sensitive:user:123}
- */
 @Slf4j
 public class RateLimiter {
 

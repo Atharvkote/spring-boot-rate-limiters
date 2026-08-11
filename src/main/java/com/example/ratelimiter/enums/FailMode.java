@@ -1,4 +1,4 @@
-package com.example.ratelimiter.config;
+package com.example.ratelimiter.enums;
 
 public enum FailMode {
     OPEN,

@@ -1,15 +1,11 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters.policies;
 
-import com.example.ratelimiter.config.AlgorithmType;
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.config.RateLimiterProperties;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.config.properties.RateLimiterProperties;
 
 import java.time.Duration;
 
-/**
- * Immutable policy record — replaces 4 separate policy classes + interface.
- * Built from {@link RateLimiterProperties.PolicyConfig} via the factory method.
- */
 public record RateLimitPolicy(
     int limit,
     Duration window,

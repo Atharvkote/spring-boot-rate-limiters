@@ -1,10 +1,10 @@
 package com.example.ratelimiter.filter;
 
-import com.example.ratelimiter.config.FailMode;
-import com.example.ratelimiter.config.RateLimiterProperties;
-import com.example.ratelimiter.core.ClientContext;
-import com.example.ratelimiter.core.RateLimitResult;
-import com.example.ratelimiter.core.RateLimiter;
+import com.example.ratelimiter.enums.FailMode;
+import com.example.ratelimiter.config.properties.RateLimiterProperties;
+import com.example.ratelimiter.limiters.RateLimiter;
+import com.example.ratelimiter.limiters.records.ClientContext;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -37,8 +37,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             ClientResolver clientResolver,
             RateLimiterResolver limiterResolver,
             ObjectMapper objectMapper,
-            MeterRegistry meterRegistry
-    ) {
+            MeterRegistry meterRegistry) {
         this.properties = properties;
         this.clientResolver = clientResolver;
         this.limiterResolver = limiterResolver;
@@ -56,8 +55,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         if (!properties.isEnabled()) {
             filterChain.doFilter(request, response);
@@ -103,8 +101,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
                 "status", 429,
                 "error", "Too Many Requests",
                 "message", "Rate limit exceeded",
-                "retryAfterSeconds", retryAfter
-        )));
+                "retryAfterSeconds", retryAfter)));
     }
 
     private void recordMetrics(String category, RateLimitResult result) {

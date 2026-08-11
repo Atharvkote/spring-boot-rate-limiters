@@ -1,7 +1,8 @@
 package com.example.ratelimiter.filter;
 
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.core.ClientContext;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.limiters.records.ClientContext;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,13 @@ import static org.mockito.Mockito.when;
 class ClientResolverTest {
 
     private final ClientResolver resolver = new ClientResolver();
-    @Mock private HttpServletRequest request;
-    @Mock private Principal principal;
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private Principal principal;
 
-    @Test @DisplayName("Anonymous → IP client")
+    @Test
+    @DisplayName("Anonymous → IP client")
     void anonymous() {
         when(request.getUserPrincipal()).thenReturn(null);
         when(request.getRemoteAddr()).thenReturn("192.168.1.10");
@@ -33,7 +37,8 @@ class ClientResolverTest {
         assertThat(ctx.userId()).isNull();
     }
 
-    @Test @DisplayName("Authenticated → USER client")
+    @Test
+    @DisplayName("Authenticated → USER client")
     void authenticated() {
         when(request.getUserPrincipal()).thenReturn(principal);
         when(principal.getName()).thenReturn("user123");
@@ -45,7 +50,8 @@ class ClientResolverTest {
         assertThat(ctx.clientId()).isEqualTo("user123");
     }
 
-    @Test @DisplayName("Blank principal name → falls back to IP")
+    @Test
+    @DisplayName("Blank principal name → falls back to IP")
     void blankPrincipal() {
         when(request.getUserPrincipal()).thenReturn(principal);
         when(principal.getName()).thenReturn("  ");

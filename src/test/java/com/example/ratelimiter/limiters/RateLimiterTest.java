@@ -1,8 +1,13 @@
-package com.example.ratelimiter.core;
+package com.example.ratelimiter.limiters;
 
-import com.example.ratelimiter.config.AlgorithmType;
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.config.RateLimiterProperties;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.config.properties.RateLimiterProperties;
+import com.example.ratelimiter.limiters.algos.RateLimitAlgorithm;
+import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
+import com.example.ratelimiter.limiters.records.ClientContext;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +19,8 @@ import static org.mockito.Mockito.*;
 
 class RateLimiterTest {
 
-    @Test @DisplayName("Key format: rl:{category}:{clientType}:{clientId}")
+    @Test
+    @DisplayName("Key format: rl:{category}:{clientType}:{clientId}")
     void keyFormat() {
         var algo = mock(RateLimitAlgorithm.class);
         var policy = new RateLimitPolicy(10, Duration.ofSeconds(60), AlgorithmType.FIXED_WINDOW, ClientType.IP);
@@ -27,7 +33,8 @@ class RateLimiterTest {
         verify(algo).check(eq("rl:auth:ip:10.0.0.1"), any());
     }
 
-    @Test @DisplayName("Policy.from() maps config correctly")
+    @Test
+    @DisplayName("Policy.from() maps config correctly")
     void policyFromConfig() {
         var cfg = new RateLimiterProperties.PolicyConfig();
         cfg.setLimit(20);
