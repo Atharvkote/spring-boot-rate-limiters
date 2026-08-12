@@ -1,4 +1,4 @@
-# Spring Boot Redis Rate Limiter
+# Spring Boot Redis Rate Limiter - Template
 
 A production-grade, distributed, category-based rate-limiting system built with **Spring Boot 3.2**, **Java 17**, **Redis 7**, and **Lua scripting**.
 
