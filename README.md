@@ -1,7 +1,10 @@
 # Spring Boot Distributed Redis Rate Limiter
 
+
 > [!TIP]
 > This is a public template. You’re free to use it for your project.
+
+<img width="1415" height="848" alt="image" src="https://github.com/user-attachments/assets/4160ca31-ea67-41c8-a58c-211ded2babdd" />
 
 A production-grade, distributed, category-based rate-limiting system built with **Spring Boot 3.2**, **Java 17**, **Redis 7**, and **Lua scripting**.
 
