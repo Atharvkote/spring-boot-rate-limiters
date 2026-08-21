@@ -1,8 +1,8 @@
 package com.example.ratelimiter.core;
 
-import com.example.ratelimiter.config.AlgorithmType;
-import com.example.ratelimiter.config.ClientType;
-import com.example.ratelimiter.limiters.RateLimitResult;
+import com.example.ratelimiter.enums.AlgorithmType;
+import com.example.ratelimiter.enums.ClientType;
+import com.example.ratelimiter.limiters.records.RateLimitResult;
 import com.example.ratelimiter.limiters.algos.FixedWindowAlgorithm;
 import com.example.ratelimiter.limiters.policies.RateLimitPolicy;
 import com.example.ratelimiter.limiters.stores.RateLimitStore;
